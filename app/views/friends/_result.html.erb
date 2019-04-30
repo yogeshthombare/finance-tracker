@@ -1,0 +1,19 @@
+<% if params[:action] == 'search' %>
+  <div class="result-block">
+    <%= bootstrap_flash %>
+  </div>
+<% end %>
+
+<% unless @users.blank? %>
+  <div class="well result-block">
+    <% @users.each do |user|%>
+
+      <strong>First Name</strong> <%= user.first_name%>
+      <strong>Last Name</strong> <%= user.last_name%>
+      <strong>Email</strong> <%= user.email%>
+      <br>
+      <%#= link_to  "Add Friend", user_stock_index_path(user: current_user, stock_ticker: @stock.ticker),
+                                    class: "btn btn-xs btn-success", method: :post %>
+    <%end%>
+<% end %>
+</div>
