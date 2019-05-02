@@ -5,15 +5,26 @@
 <% end %>
 
 <% unless @users.blank? %>
-  <div class="well result-block">
-    <% @users.each do |user|%>
-
-      <strong>First Name</strong> <%= user.first_name%>
-      <strong>Last Name</strong> <%= user.last_name%>
-      <strong>Email</strong> <%= user.email%>
-      <br>
-      <%#= link_to  "Add Friend", user_stock_index_path(user: current_user, stock_ticker: @stock.ticker),
-                                    class: "btn btn-xs btn-success", method: :post %>
-    <%end%>
+  <div class="well result-block col-md-10">
+    <table class="search-result-table col-md-12">
+      <tbody>
+      <% @users.each do |user|%>
+        <tr>   
+          <td><strong>First Name</strong> <%= user.full_name%></td>
+          <td><strong>Email</strong> <%= user.email%></td>
+          <td><strong>Profile</strong> <%= link_to "View Profile", user_path(user), class: "btn, btn-xs btn-success" %>
+          <% unless current_user.already_friend?(user.id) %>
+            <%= link_to  "Add Friend", add_friend_path(user: current_user, friend: user),
+                                      class: "btn btn-xs btn-primary", method: :post %>
+          <%else%>
+            <span class="label label-primary">
+              You were already friends
+            </span>
+          <%end%>
+          </td>
+        </tr>
+      <%end%>
+      </tbody>
+    </tbody>
 <% end %>
 </div>
